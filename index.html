@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Forever - A Digital Love Timeline 💖</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ANIMATED LOADER -->
+  <div id="loader" class="loader-overlay">
+    <div class="loader-inner">
+      <div class="loader-heart">
+        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 85 C50 85 5 55 5 28 C5 14 16 5 28 5 C37 5 45 10 50 18 C55 10 63 5 72 5 C84 5 95 14 95 28 C95 55 50 85 50 85Z"/>
+        </svg>
+      </div>
+      <p class="loader-text">Getting our love ready…</p>
+    </div>
+  </div>
+
+  <!-- BUTTERFLY CANVAS -->
+  <canvas id="butterflyCanvas"></canvas>
+
+  <!-- CLICK BURST CONTAINER -->
+  <div id="burstContainer"></div>
+
+  <!-- IN-APP NOTIFICATION -->
+  <div id="notification" class="notification hidden">
+    <div class="notification-icon">💌</div>
+    <div class="notification-body">
+      <p class="notification-title">Yay! A new memory just for you! 💌</p>
+      <p class="notification-sub" id="notificationSub">Tap to see your next surprise, cutie!</p>
+    </div>
+    <button class="notification-view" id="notificationViewBtn">Show Me!</button>
+    <button class="notification-close" id="notificationCloseBtn">Close</button>
+  </div>
+
+  <!-- LOCKED MEMORY POPUP -->
+  <div id="lockedPopup" class="popup-overlay hidden">
+    <div class="popup-card">
+      <button class="popup-close" id="popupCloseBtn">✕</button>
+      <div class="popup-icon">🔒</div>
+      <h2 class="popup-title">Oops! This memory is still a secret 💖</h2>
+      <p class="popup-message" id="popupMessage">A little surprise is on its way for you…</p>
+      <p class="popup-unlock-date" id="popupUnlockDate"></p>
+      <div class="countdown-grid">
+        <div class="countdown-cell"><span id="cdDays">00</span><small>days</small></div>
+        <div class="countdown-cell"><span id="cdHours">00</span><small>hours</small></div>
+        <div class="countdown-cell"><span id="cdMins">00</span><small>minutes</small></div>
+        <div class="countdown-cell"><span id="cdSecs">00</span><small>seconds</small></div>
+      </div>
+      <p class="popup-quote">"The sweetest things take a little time. I pinky promise it's worth it!"</p>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <span class="nav-logo-heart">♡</span>
+      <span>Our Cute Forever</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#love-story">How We Met</a></li>
+      <li><a href="#timeline">Our Moments</a></li>
+      <li><a href="#message">Love Note</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button id="musicToggle" class="ctrl-btn" title="Toggle Music">🎵</button>
+      <button id="themeToggle" class="ctrl-btn" title="Toggle Theme">🌙</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <ul>
+      <li><a href="#hero"       class="drawer-link">Home</a></li>
+      <li><a href="#love-story" class="drawer-link">Our Story</a></li>
+      <li><a href="#timeline"   class="drawer-link">Memories</a></li>
+      <li><a href="#message"    class="drawer-link">Message</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-bg-orbs">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">For my favorite person in the universe</p>
+      <h1 class="hero-name" id="heroName">My Sweetheart</h1>
+      <p class="hero-tagline">
+        <span id="typingText"></span><span class="typing-cursor">|</span>
+      </p>
+      <div class="hero-timer-wrap">
+        <p class="hero-timer-label">We've been us for</p>
+        <div class="hero-timer" id="heroTimer">
+          <div><span id="rYears">0</span><small>years</small></div>
+          <div><span id="rDays">0</span><small>days</small></div>
+          <div><span id="rHours">0</span><small>hours</small></div>
+          <div><span id="rMins">0</span><small>mins</small></div>
+        </div>
+      </div>
+      <a href="#timeline" class="hero-cta">
+        <span>See Our Cute Memories</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>scroll for love</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- LOVE STORY SECTION -->
+  <section id="love-story">
+    <div class="section-label">Once upon a time…</div>
+    <h2 class="section-title reveal">How We Became Us</h2>
+    <div class="story-grid">
+      <div class="story-card reveal-left">
+        <div class="story-card-icon">🌙</div>
+        <h3>First Look, Heart Took</h3>
+        <p>I saw you and my heart did a happy dance. You're my favorite hello and my hardest goodbye.</p>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-card-icon">💫</div>
+        <h3>Falling for You</h3>
+        <p>Every giggle, every chat, every silly moment - my heart picked you, again and again, without hesitation.</p>
+      </div>
+      <div class="story-card reveal-right">
+        <div class="story-card-icon">🌹</div>
+        <h3>Always My Choice</h3>
+        <p>Every single day I choose you. You're my best thing, my always, my forever - and I'd choose you a million times more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORY TIMELINE SECTION -->
+  <section id="timeline">
+    <div class="section-label">Our Sweet Memories</div>
+    <h2 class="section-title reveal">All the Cute Things We Did</h2>
+    <p class="section-sub reveal">Every card is a little hug, a tiny kiss, a happy memory - just for us.</p>
+    <div class="memory-grid" id="memoryGrid"></div>
+  </section>
+
+  <!-- SPECIAL MESSAGE SECTION -->
+  <section id="message">
+    <div class="section-label">P.S. I Love You</div>
+    <h2 class="section-title reveal">A Little Love Note</h2>
+    <div class="message-card reveal">
+      <div class="message-quote-mark">"</div>
+      <p class="message-body">
+        Every memory here is a little piece of my heart, saved just for you. I made this because you make every day feel like magic.
+        I'll keep adding more and more, because loving you is my favorite thing ever.
+        Each link is a door - and on the other side is a little world I built with you in mind.<br/><br/>
+        I love you to the moon, the stars, and all the way back. Always and forever. 💖
+      </p>
+      <p class="message-signature">- Your forever cutie 🦋</p>
+    </div>
+
+    <h3 class="favs-title reveal">Your Heart Picks ❤️</h3>
+    <div class="favs-grid" id="favsGrid">
+      <p class="favs-empty" id="favsEmpty">Tap the heart on a memory to save it here, sweetie!</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-heart-row">
+      <span class="footer-heart anim-heart">♡</span>
+      <span class="footer-heart anim-heart" style="animation-delay:.3s">♡</span>
+      <span class="footer-heart anim-heart" style="animation-delay:.6s">♡</span>
+    </div>
+    <p class="footer-text">Made with all my love · Every moment with you is special · <span id="footerYear"></span></p>
+    <p class="footer-sub">For the one who makes my heart go boom 💫</p>
+  </footer>
+
+  <!-- Background audio - swap src for your preferred song -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
