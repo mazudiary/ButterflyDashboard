@@ -2,20 +2,30 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#06040f" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%8B%3C/text%3E%3C/svg%3E" />
+  <meta name="description" content="Our Forever - a digital love timeline of memories, surprises and little worlds built with love." />
   <title>Our Forever - A Digital Love Timeline 💖</title>
-  <link rel="stylesheet" href="style.css" />
+  <!-- Apply the saved theme before first paint (prevents a dark/light flash) -->
+  <script>
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- ANIMATED LOADER -->
-  <div id="loader" class="loader-overlay">
+  <div id="loader" class="loader-overlay" role="status" aria-live="polite">
     <div class="loader-inner">
       <div class="loader-heart">
-        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M50 85 C50 85 5 55 5 28 C5 14 16 5 28 5 C37 5 45 10 50 18 C55 10 63 5 72 5 C84 5 95 14 95 28 C95 55 50 85 50 85Z"/>
         </svg>
       </div>
@@ -24,28 +34,30 @@
   </div>
 
   <!-- BUTTERFLY CANVAS -->
-  <canvas id="butterflyCanvas"></canvas>
+  <canvas id="butterflyCanvas" aria-hidden="true"></canvas>
 
   <!-- CLICK BURST CONTAINER -->
-  <div id="burstContainer"></div>
+  <div id="burstContainer" aria-hidden="true"></div>
 
   <!-- IN-APP NOTIFICATION -->
-  <div id="notification" class="notification hidden">
+  <div id="notification" class="notification hidden" role="status" aria-live="polite">
     <div class="notification-icon">💌</div>
     <div class="notification-body">
       <p class="notification-title">Yay! A new memory just for you! 💌</p>
       <p class="notification-sub" id="notificationSub">Tap to see your next surprise, cutie!</p>
     </div>
-    <button class="notification-view" id="notificationViewBtn">Show Me!</button>
-    <button class="notification-close" id="notificationCloseBtn">Close</button>
+    <div class="notification-actions">
+      <button class="notification-view" id="notificationViewBtn" type="button">Show Me!</button>
+      <button class="notification-close" id="notificationCloseBtn" type="button" aria-label="Close notification">✕</button>
+    </div>
   </div>
 
   <!-- LOCKED MEMORY POPUP -->
-  <div id="lockedPopup" class="popup-overlay hidden">
+  <div id="lockedPopup" class="popup-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
     <div class="popup-card">
-      <button class="popup-close" id="popupCloseBtn">✕</button>
+      <button class="popup-close" id="popupCloseBtn" type="button" aria-label="Close">✕</button>
       <div class="popup-icon">🔒</div>
-      <h2 class="popup-title">Oops! This memory is still a secret 💖</h2>
+      <h2 class="popup-title" id="popupTitle">Oops! This memory is still a secret 💖</h2>
       <p class="popup-message" id="popupMessage">A little surprise is on its way for you…</p>
       <p class="popup-unlock-date" id="popupUnlockDate"></p>
       <div class="countdown-grid">
@@ -59,39 +71,45 @@
   </div>
 
   <!-- NAVBAR -->
-  <nav id="navbar">
+  <nav id="navbar" aria-label="Main">
     <div class="nav-logo">
       <span class="nav-logo-heart">♡</span>
       <span>Our Cute Forever</span>
     </div>
     <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#love-story">How We Met</a></li>
-      <li><a href="#timeline">Our Moments</a></li>
-      <li><a href="#message">Love Note</a></li>
+      <li><a href="#hero" data-spy="hero">Home</a></li>
+      <li><a href="#love-story" data-spy="love-story">How We Met</a></li>
+      <li><a href="#timeline" data-spy="timeline">Our Moments</a></li>
+      <li><a href="#message" data-spy="message">Love Note</a></li>
     </ul>
     <div class="nav-controls">
-      <button id="musicToggle" class="ctrl-btn" title="Toggle Music">🎵</button>
-      <button id="themeToggle" class="ctrl-btn" title="Toggle Theme">🌙</button>
+      <a class="back-pill" id="backToDiaries" href="https://mazudiary.github.io/DreamyDiaries/diary.html" title="Back to Dreamy Diaries">
+        <span aria-hidden="true">🌸</span><span class="back-pill-text">Diaries</span>
+      </a>
+      <button id="musicToggle" class="ctrl-btn" type="button" title="Toggle Music" aria-label="Toggle music" aria-pressed="false">🎵</button>
+      <button id="themeToggle" class="ctrl-btn" type="button" title="Toggle Theme" aria-label="Toggle theme">🌙</button>
     </div>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <button class="nav-hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileDrawer">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <!-- Mobile drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <div class="mobile-drawer" id="mobileDrawer">
     <ul>
       <li><a href="#hero"       class="drawer-link">Home</a></li>
       <li><a href="#love-story" class="drawer-link">Our Story</a></li>
       <li><a href="#timeline"   class="drawer-link">Memories</a></li>
       <li><a href="#message"    class="drawer-link">Message</a></li>
+      <li><a href="https://mazudiary.github.io/DreamyDiaries/diary.html" class="drawer-link drawer-back">🌸 Back to Dreamy Diaries</a></li>
     </ul>
   </div>
 
+  <main>
   <!-- HERO SECTION -->
   <section id="hero">
-    <div class="hero-bg-orbs">
+    <div class="hero-bg-orbs" aria-hidden="true">
       <div class="orb orb1"></div>
       <div class="orb orb2"></div>
       <div class="orb orb3"></div>
@@ -100,7 +118,7 @@
       <p class="hero-eyebrow">For my favorite person in the universe</p>
       <h1 class="hero-name" id="heroName">My Sweetheart</h1>
       <p class="hero-tagline">
-        <span id="typingText"></span><span class="typing-cursor">|</span>
+        <span id="typingText"></span><span class="typing-cursor" aria-hidden="true">|</span>
       </p>
       <div class="hero-timer-wrap">
         <p class="hero-timer-label">We've been us for</p>
@@ -113,10 +131,10 @@
       </div>
       <a href="#timeline" class="hero-cta">
         <span>See Our Cute Memories</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-    <div class="hero-scroll-hint">
+    <div class="hero-scroll-hint" aria-hidden="true">
       <span>scroll for love</span>
       <div class="scroll-line"></div>
     </div>
@@ -150,7 +168,26 @@
     <div class="section-label">Our Sweet Memories</div>
     <h2 class="section-title reveal">All the Cute Things We Did</h2>
     <p class="section-sub reveal">Every card is a little hug, a tiny kiss, a happy memory - just for us.</p>
-    <div class="memory-grid" id="memoryGrid"></div>
+
+    <div class="timeline-toolbar reveal">
+      <div class="progress-card">
+        <div class="progress-ring" id="progressRing" style="--p:0">
+          <span id="progressText">0/0</span>
+        </div>
+        <div class="progress-copy">
+          <p class="progress-title">Memories unlocked</p>
+          <p class="progress-next" id="nextSurprise">Loading our surprises…</p>
+        </div>
+      </div>
+      <div class="chips" role="group" aria-label="Filter memories">
+        <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-filter="open" aria-pressed="false">Open</button>
+        <button type="button" class="chip" data-filter="locked" aria-pressed="false">Locked</button>
+        <button type="button" class="chip" data-filter="hearts" aria-pressed="false">💖 Hearts</button>
+      </div>
+    </div>
+
+    <div class="memory-grid" id="memoryGrid" aria-live="polite"></div>
   </section>
 
   <!-- SPECIAL MESSAGE SECTION -->
@@ -158,7 +195,7 @@
     <div class="section-label">P.S. I Love You</div>
     <h2 class="section-title reveal">A Little Love Note</h2>
     <div class="message-card reveal">
-      <div class="message-quote-mark">"</div>
+      <div class="message-quote-mark" aria-hidden="true">"</div>
       <p class="message-body">
         Every memory here is a little piece of my heart, saved just for you. I made this because you make every day feel like magic.
         I'll keep adding more and more, because loving you is my favorite thing ever.
@@ -173,20 +210,22 @@
       <p class="favs-empty" id="favsEmpty">Tap the heart on a memory to save it here, sweetie!</p>
     </div>
   </section>
+  </main>
 
   <!-- FOOTER -->
   <footer id="footer">
-    <div class="footer-heart-row">
+    <div class="footer-heart-row" aria-hidden="true">
       <span class="footer-heart anim-heart">♡</span>
       <span class="footer-heart anim-heart" style="animation-delay:.3s">♡</span>
       <span class="footer-heart anim-heart" style="animation-delay:.6s">♡</span>
     </div>
     <p class="footer-text">Made with all my love · Every moment with you is special · <span id="footerYear"></span></p>
     <p class="footer-sub">For the one who makes my heart go boom 💫</p>
+    <a class="footer-back" href="https://mazudiary.github.io/DreamyDiaries/diary.html">🌸 Back to Dreamy Diaries</a>
   </footer>
 
-  <!-- Background audio - swap src for your preferred song -->
-  <audio id="bgMusic" loop>
+  <!-- Background audio - swap src for your preferred song. preload="none" = it only downloads when she taps play -->
+  <audio id="bgMusic" loop preload="none">
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mpeg" />
   </audio>
 
