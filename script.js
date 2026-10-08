@@ -22,7 +22,7 @@
    CONFIGURATION  ← Edit these to personalise
 ───────────────────────────────────────────────── */
 const CONFIG = {
-  relationshipStart: "2026-07-17",   // YYYY-MM-DD (Bangladesh time)
+  relationshipStart: "2026-10-02",   // YYYY-MM-DD (Bangladesh time)
   wifeName: "My Sweetheart",
 
   typingPhrases: [
